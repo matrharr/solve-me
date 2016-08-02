@@ -15,14 +15,6 @@ ActiveRecord::Schema.define(version: 20160802042435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "answers", force: :cascade do |t|
-    t.integer  "question_id"
-    t.string   "value"
-    t.string   "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "matches", force: :cascade do |t|
     t.integer  "questionaire_maker_id"
     t.integer  "questionaire_taker_id"
@@ -32,15 +24,20 @@ ActiveRecord::Schema.define(version: 20160802042435) do
 
   create_table "questionaires", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.integer  "questionaire_id"
-    t.string   "content"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "first_question"
+    t.string   "first_correct_answer"
+    t.string   "first_middle_answer"
+    t.string   "first_wrong_answer"
+    t.string   "second_question"
+    t.string   "second_correct_answer"
+    t.string   "second_middle_answer"
+    t.string   "second_wrong_answer"
+    t.string   "third_question"
+    t.string   "third_correct_answer"
+    t.string   "third_middle_answer"
+    t.string   "third_wrong_answer"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "users", force: :cascade do |t|
