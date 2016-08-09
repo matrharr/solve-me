@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def update
     @updated_user = User.find(session[:user_id])
-    @updated_user.update(params)
+    @updated_user.update(user_params)
     render json: @updated_user
   end
 
