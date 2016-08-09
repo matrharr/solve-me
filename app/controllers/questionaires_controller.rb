@@ -1,40 +1,37 @@
 class QuestionairesController < ApplicationController
 
   def index
+    # session[:user_location] is user location
     # helper method filters questionaires from local area
     @questionaires_in_area = helper(userlocation)
+    
+    render json: @questionaires_in_area
   end
 
   def create
-    @questionaire = Questionaire.create(questionaire_params)
-    
-    # Question.create(content: params[:question1], questionaire_id: @questionaire.id)
-    # Answer.create(content: params[:correct1], value: 'correct')
-    # Answer.create(content: params[:dumb1], value: 'wrong')
-    # Answer.create(content: params[:dumbper1], value: 'wrong')
-
-    # Question.create(content: params[:question2], questionaire_id: @questionaire.id)
-    # Answer.create(content: params[:correct2], value: 'correct')
-    # Answer.create(content: params[:dumb2], value: 'wrong')
-    # Answer.create(content: params[:dumbper2], value: 'wrong')
-
-    # Question.create(content: params[:question3], questionaire_id: @questionaire.id)
-    # Answer.create(content: params[:correct3], value: 'correct')
-    # Answer.create(content: params[:dumb3], value: 'wrong')
-    # Answer.create(content: params[:dumbper3], value: 'wrong')
-
+    @questionaire = Questionaire.new(questionaire_params)
+    @questionaire.user_id = session[:user_id]
+    @questionaire.save
     
     render json: @questionaire      
 
   end
 
   def update
+    @updated_questionaire = Questionaire.find_by(user_id: session[:user_id])
+    @updated_questionaire.update(params)
+    render json: @updated_questionaire
   end
 
   def edit
+    @questionaire = Questionaire.find_by(user_id:session[:user_id])
+    render json: @questionaire
   end
 
-  def delete
+  def destroy
+    @questionaire = Questionaire.find_by(user_id:session[:user_id])
+    @questionaire.destroy
+    render json: "Success Message"
   end
 
   def show
@@ -44,8 +41,21 @@ class QuestionairesController < ApplicationController
 
   private
 
-    def questionaire_params(params)
-      params.require(:questionaire).permit()
+    def questionaire_params
+      params.require(:questionaire).permit(
+       :first_question,
+       :first_correct_answer,
+       :first_middle_answer,
+       :first_wrong_answer,
+       :second_question,
+       :second_correct_answer,
+       :second_middle_answer,
+       :second_wrong_answer,
+       :third_question,
+       :third_correct_answer,
+       :third_middle_answer,
+       :third_wrong_answer,
+        )
     end
 
 end
