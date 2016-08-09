@@ -1,20 +1,26 @@
 class UsersController < ApplicationController
 
-  def index
-  end
-
   def create
-    @user = User.create(fb_params)
+    p params
+    @user = User.create(user_params)
     render json: @user
   end
 
   def update
+    @updated_user = User.find(session[:user_id])
+    @updated_user.update(params)
+    render json: @updated_user
   end
 
   def edit
+    @user = User.find(session[:user_id])
+    render json: @user
   end
 
-  def delete
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    render json: 'Success Message'
   end
 
   def show
@@ -24,8 +30,8 @@ class UsersController < ApplicationController
 
   private
   
-    def user_params(params)
-      params.require(:questionaire).permit()
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :email)
     end
 
 

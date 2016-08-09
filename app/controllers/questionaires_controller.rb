@@ -1,8 +1,10 @@
 class QuestionairesController < ApplicationController
 
   def index
+    # session[:user_location] is user location
     # helper method filters questionaires from local area
     @questionaires_in_area = helper(userlocation)
+    render json: @questionaires_in_area
   end
 
   def create

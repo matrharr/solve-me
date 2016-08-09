@@ -1,5 +1,8 @@
 class User < ApplicationRecord
 
+
+  validates_presence_of :first_name, :last_name, :email
+
   has_one :questionaire
   # has_many :questionaire_takers, through: :questionaire_takers_matches, source: :matches
   # has_many :questionaire_makers, through: :questionaire_makers_matches, source: :matches

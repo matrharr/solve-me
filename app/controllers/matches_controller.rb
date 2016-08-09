@@ -5,7 +5,10 @@ class MatchesController < ApplicationController
     # helper method to find takers/makers
   end
 
-  
+  def create
+
+  end
+
   def delete
   end
 
