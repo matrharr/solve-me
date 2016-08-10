@@ -34,6 +34,9 @@ module SolveMe
     #     resource '*', :headers => :any, :methods => [:get, :post, :options]
     #   end
     # end
+    config.action_controller.include_all_helpers = true
+
+
     config.action_dispatch.default_headers = {
       'Access-Control-Allow-Origin' => '*',
       'Access-Control-Request-Method' => '*',
