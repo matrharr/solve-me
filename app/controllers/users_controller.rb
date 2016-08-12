@@ -11,20 +11,23 @@ class UsersController < ApplicationController
   end
 
   def update
-    @updated_user = User.find(session[:user_id])
-    @updated_user.update(user_params)
-    render json: @updated_user
+    @updated_user = User.find_by(access_token: params[:access_token])
+    if @updated_user.update(user_params)
+      render text: "Account has been updated successfully", status: 200
+    else
+      render json: @updated_user.errors, status: 422
+    end
   end
 
   def edit
-    @user = User.find(session[:user_id])
+    @user = User.find_by(access_token: params[:access_token])
     render json: @user
   end
 
   def destroy
-    user = User.find(params[:id])
+    user = User.find_by(access_token: params[:access_token])
     user.destroy
-    render json: 'Success Message'
+    render text: 'Account has been successfully deleted'
   end
 
   def show
